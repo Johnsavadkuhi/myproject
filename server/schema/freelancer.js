@@ -33,8 +33,8 @@ type Token{
 input Ifreelancer { 
     
     _id :ID! 
-    name : String!
-    family :String!
+    name : String
+    family :String
     id_number: String
     id_photo: String
     verification_status : String
@@ -57,11 +57,11 @@ input Ifreelancer {
 
 type Freelancer {
     _id :ID! 
-    name : String!
-    family :String!
-    username :String!
-    email:String!
-    password :String!
+    name : String
+    family :String
+    username :String
+    email:String
+    password :String
     id_number: String
     id_photo: String
     verification_status : String
