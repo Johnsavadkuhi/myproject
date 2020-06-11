@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({
 app.use(cors())
 
 const getUser =  (token) => {
-    
+     
     try {
     
         if (token) {
@@ -40,12 +40,8 @@ const server = new ApolloServer({
 
         const token = req.headers.authorization
         
-        console.log("token : " , token ) 
-
         const user = getUser(token) 
       
-        console.log("User : "  , user );
-        
         return user 
 
     },
