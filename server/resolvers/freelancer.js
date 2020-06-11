@@ -14,10 +14,9 @@ export default {
       
       console.log("requsted from client ")
 
-      const d = await Freelancer.findById(id).exec() 
+      const d =  await Freelancer.findById(id) 
+      console.log(d);
       
-      console.log(d) 
-       
       return d ; 
 
     }, 
@@ -55,7 +54,7 @@ export default {
         password: hashed
 
       })
-
+  
       const createdFreelancer = await freelancer.save()
 
       return {
