@@ -37,9 +37,7 @@ export default {
 
   Mutation: {
 
-    signUp: async (parent, args, {
-      secret
-    }) => {
+    signUp: async (parent, args) => {
 
       
       const hashed  =  await generatePasswordHash(args.password) ; 
@@ -54,22 +52,31 @@ export default {
         password: hashed
 
       })
+      const secret =  process.env.SECRET 
+      console.log("secret : " , secret);
+      
   
       const createdFreelancer = await freelancer.save()
 
       return {
-        token: createToken(createdFreelancer, secret, '30m')
+        token: createToken(createdFreelancer , "30m")
       }
 
     }, 
 
-    signIn:async (paretn ,args  )=>{
+    signIn:async (paretn , args  )=>{
  
 
+      console.log("enter in sign in ");
+      
     const freelancer =  await  Freelancer.find({username:args.login} ).select("_id username email")
 
+    console.log("freelancer : " , freelancer ); 
+
   
-      if(!freelancer){
+  
+      if(freelancer.length === 0  ){
+
         throw new UserInputError('No user found with this login credentials')
       }
 
@@ -91,24 +98,23 @@ export default {
 
 }
 
-const createToken =  (freelancer, expiresIn) => {
+const createToken =  (  freelancer, expiresIn) => {
 
-  const [{
+
+  console.log("expireIn -----: " , expiresIn) 
+
+  const {
     id,
     username,
     email,
     
-  }] = freelancer;
-
-   console.log("_id : ", id, "email : ", email, "username : ", username);
+  } = freelancer;
 
   return  jwt.sign({
     id,
     username, 
     email 
-  }, process.env.SECRET, {
-    expiresIn
-  });
+  }, process.env.SECRET ,{expiresIn}) ;
 };
 
 const generatePasswordHash = async (password) => {
