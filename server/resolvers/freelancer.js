@@ -65,15 +65,10 @@ export default {
     }, 
 
     signIn:async (paretn , args  )=>{
- 
-
-      console.log("enter in sign in ");
-      
+       
     const freelancer =  await  Freelancer.find({username:args.login} ).select("_id username email")
 
     console.log("freelancer : " , freelancer ); 
-
-  
   
       if(freelancer.length === 0  ){
 
